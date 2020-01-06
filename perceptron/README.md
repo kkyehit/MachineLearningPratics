@@ -1,4 +1,5 @@
-### Perceptron
+# Perceptron
+***
 - MCP 뉴런 모델을 기반
 1. 가중치를 0 또는 무작위의 작은 값으로 초기화한다.
 2. 각 훈련 샘플 X^(i)에서
@@ -23,6 +24,7 @@
 - 두 class를 선형적으로 구분할 수 없다면 훈련 데이터셋을 반복할 최대 횟수(epoch)를 지정하고 분류 허용 오차를 지정할 수 있다.
 - OvA(One-versus-All) 전략을 사용하면 다중 클래스 분류로 확장할 수 있다.
 
+***
 ## Artifical neuron
 - 두개의 클래스가 있는 이진 분류 작업
     + 양성 클래스 : 임계값 보다 큰 경우
@@ -31,21 +33,22 @@
 
 
 
+***
 ## numpy ( Numberical Python )
 - C언어로 구현된 파이썬 라이브러리로써 고성능의 수치 계산을 위해 사용.
 - 백터 및 행렬 연산에 편리한 기능 제공
 
-# numpy를 이용하여 array 정의
+### numpy를 이용하여 array 정의
 - data1 = [1, 2, 3, 4, 5]
 - arr1 = np.array(data1)
 
-# array의 크기 확인
+### array의 크기 확인
 - arr1.shape
 
-# array의 자료형 확인
+### array의 자료형 확인
 - arr1.dtype
 
-# array 생성
+### array 생성
 - np.zero(n) 
     + n의 크기만큼 0으로 채운 array 생성 인자가 (3, 5)일 경우 0으로 채운 3행 5열 행렬 생성 
 - np.ones(n) 
@@ -58,17 +61,17 @@
 - np.eye()
     + 대각선이 1이고 나머지는 0인 2차원 배열을 생성한다.
 
-# array 연산
+### array 연산
 - 기본적으로 크기가 서로 동일한 array끼리 연산이 가능하지만
 - numpy에서 크기가 다른 array 사이에 연산이 가능하도록 브로드캐스트 기능을 사용한다.
 - arr1 * arr2 는 일반적인 행렬 곱이 아닌 요소별로 곱셈이 진행된다.
 - vector와 matrix의 곱셈을 구하기 위해서는 dot() 함수를 사용한다.
     + np.dot(arr1, arr2)
 
-# array Slice
+### array Slice
 - arr2 = arr1[0:2, 0:2]
 
-# Numpy 함수
+### Numpy 함수
 - np.random.randn( 5, 3) 
     + 무작위 값(실수)을 가진 5x3 array 반환
 
@@ -103,7 +106,7 @@
     + x 값의 배열과 y 값의 배열로 2차원 그리드 포인트를 생성한다.
     + 결과는 그리드 포인트의 x 값만을 표시하는 행렬과 y 값만을 표시하는 행렬 두 개로 분리하여 출력한다
 
-# numpy.random.RandomState()
+### numpy.random.RandomState()
 -  랜덤넘버 생성기인 랜덤함수들을 포함하는 클래스.
 -  RandomState는 다양한 확률분포측면에 수 많은 랜덤넘버 생성기들을 가지고 있다.
 -  매개변수는 난수 생성기 시드이다.
@@ -115,5 +118,6 @@
     + 반환값은 ndarray또는 scalar 값이다. 정규 분포에서 표본을 추출한다.
 
 
+***
 ## pandas
 - R의 기능을 도입하여 데이터의 통계 기능을 제공하며 CSV 파일의 읽고 쓰기 기능도 지원합니다.
