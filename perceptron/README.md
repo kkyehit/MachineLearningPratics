@@ -31,7 +31,8 @@
     + 음성 클래스 : 임계값 보다 작은 경우
 - 입력 값 X와 이에 상응하는 가중치 벡터 W의 선형 조합으로 결정 함수 정의
 
-
+## perceptron.py
+- perceptron을 이용하여 Setosa와 Versicolor 분류
 
 ***
 ## numpy ( Numberical Python )
