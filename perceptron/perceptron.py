@@ -48,7 +48,7 @@ class Perceptron(object):
         for _ in range(self.n_iter):
             errors = 0
             for xi, target in zip(X, y):    #"zip() : 자료형을 묶어준다. (X[0] y[0]) ... (X[n] y[n])"
-                update = self.eta * (target - self.predict(xi)) "학습률 * ( 실제 값 - 예측 값 )"
+                update = self.eta * (target - self.predict(xi)) #"학습률 * ( 실제 값 - 예측 값 )"
                 self.w_[1:] += update * xi  #"배열의 두번째 요소 부터 마지막까지 업데이트(개별 가중치에 대해 동시 업데이트)"
                 self.w_[0] += update        #"배열의 첫번쨰 요소 업데이트(절편)"
                 errors += int(update != 0.0)#"에러가 있다면 에러 수 증가"
