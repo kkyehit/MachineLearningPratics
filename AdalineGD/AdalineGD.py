@@ -52,7 +52,6 @@ class AdalineGD(object):
             errors = ( y - output )                     "오차 계산"
             self.w_[1:] += self.eta * X.T.dot(errors)   "배열의 T 속성 : 2차원 배열의 전치(transpose) 연산이며 행과 열을 바꾸는 작업이다."
                                                         "가중치 변화량 : 학습률 * 비용 함수의 기울기"
-                                                        "모든 가중치를 업데이트 한다."
             self.w_[0] += self.eta * errors.sum()       "절편에 errors수를 더한다."
             cost = (errors ** 2).sum() / 2.0            "비용 함수 =  ½Σ(실제 값 - 계산한 값)^2"
             self.cost_.append(cost)                     "현제 시도에서의 비용 함수 값 저장"
