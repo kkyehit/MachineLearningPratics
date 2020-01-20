@@ -49,9 +49,10 @@ class AdalineGD(object):
         for i in range(self.n_iter):
             net_input = self.net_input(X)               "최종 입력 계산"
             output = self.activation(net_input)         "선형 활성화 계산"
-            errors = ( y - output )                     "오차 계산"
+            errors = ( y - output )                     "오차 계산 (실제 값 - 예측 값)"
             self.w_[1:] += self.eta * X.T.dot(errors)   "배열의 T 속성 : 2차원 배열의 전치(transpose) 연산이며 행과 열을 바꾸는 작업이다."
                                                         "가중치 변화량 : 학습률 * 비용 함수의 기울기"
+                                                        "전체 X에 대하여 기울기를 계산한다."
             self.w_[0] += self.eta * errors.sum()       "절편에 errors수를 더한다."
             cost = (errors ** 2).sum() / 2.0            "비용 함수 =  ½Σ(실제 값 - 계산한 값)^2"
             self.cost_.append(cost)                     "현제 시도에서의 비용 함수 값 저장"
@@ -102,12 +103,13 @@ ax[1].set_xlabel('Epochs')
 ax[1].set_ylabel('log(Sum-squared-error)')
 ax[1].set_title('Adaline - Leaning rate 0.00001')
 plt.show()
-"학습률이 너무 크면 비용 전역 최소값을 지나치키 떄문에 함수를 최소화 하지 못하고 오차는 에포크 마다 커진다."
-"학습률이 너무 작으면 전역 최소값에 수렴하기 위해서는 많은 에포크가 필요하다."
+"학습률이 너무 크면 비용 전역 최소값을 지나치키 떄문에 함수를 최소화 하지 못하고 비용을 매 시도 마다 커진다."
+"학습률이 너무 작으면 전역 최소값에 수렴하기 위해서는 많은 시도가 필요하다."
 
 
 
 "데이터 표준화 ( 특성 스케일을 조정 하기 위해 )"
+"경사 하강법은 특성 스케일을 조정하여 빠르게 전역 최소값으로 수렴하도록 할 수 있다."
 "X_std : 표준화된 데이터"
 X_std = np.copy(X)
 X_std[:, 0] = (X[:,0] - X[:,0].mean()) / X[:,0].std()
