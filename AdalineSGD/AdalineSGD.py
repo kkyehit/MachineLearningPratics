@@ -44,22 +44,23 @@ class AdalineSGD(object):
         ----------
         self : object
         """
-        self._initialized_weights(X.shape[1])
-        self.cost_ = []
-        for i in range(self.n_iter):
-            if self.shuffle:
-                X, y = self._shuffle(X, y)
+        self._initialized_weights(X.shape[1])   #"""랜덤한 작은 수로 가중치를 초기화 한다(w_를 초기화)"
+        self.cost_ = []                         #"""각 시도마다 비용 저장"""
+        for i in range(self.n_iter):        
+            if self.shuffle:                    
+                X, y = self._shuffle(X, y)      #"""특성X와 레이블 y의 순서를 섞는다."""
             cost = []
-            for xi, target in zip(X, y):
-                cost.append(self._update_weights(xi, target))
-                avg_cost = sum(cost)/len(y)
-                self.cost_.append(avg_cost)
+            for xi, target in zip(X, y):        
+                cost.append(self._update_weights(xi, target))   #"""각 훈련 데이터의 가중치를 업데이트 하고 비용저장"""
+            avg_cost = sum(cost)/len(y)                         #"""len(y) : y배열의 전체 요소를 반환""""
+            self.cost_.append(avg_cost)
         return self
 
     "훈련 데이터 셋을 섞는다."
     def _shuffle(self, X, y):
-        r = self.rgen.permutation(len(y))
-        return X[r], y[r]
+        r = self.rgen.permutation(len(y))      #"""permutation(len(y)) :len(y)의 순서를 바꾼 배열을 반환한다."""
+        print(r)
+        return X[r], y[r]                       
         
     "가중치를 무작위의 작은 수로 초기화"
     def _initialized_weights(self, m):
@@ -71,12 +72,12 @@ class AdalineSGD(object):
     def _update_weights(self, xi, target):
         output = self.activation(self.net_input(xi))
         error = (target - output)
-        self.w_[1:] += self.eta * xi.dot(error)
+        self.w_[1:] += self.eta * xi.dot(error) 
         self.w_[0] += self.eta * error
         cost = 0.5 * error**2
         return cost
     
-    "스트리밍 데이터를 사용하는 온라인 학습방식을 모델을 훈련하기 위해 사용"
+    "가중치마다 다시 초기화 하지 않아 스트리밍 데이터를 사용하는 온라인 학습방식을 모델을 훈련하기 위해 사용"
     "각 샘플마다 partial_fit 메서드 호출"
     "ada.partial_fit(X_std[0, :], y[0])"
     def partial_fit(self, X, y):

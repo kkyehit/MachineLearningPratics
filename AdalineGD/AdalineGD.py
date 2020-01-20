@@ -47,15 +47,15 @@ class AdalineGD(object):
 
         "최종입력 -> 활성화 -> 출력 순으로 진행"
         for i in range(self.n_iter):
-            net_input = self.net_input(X)               "최종 입력 계산"
-            output = self.activation(net_input)         "선형 활성화 계산"
-            errors = ( y - output )                     "오차 계산 (실제 값 - 예측 값)"
-            self.w_[1:] += self.eta * X.T.dot(errors)   "배열의 T 속성 : 2차원 배열의 전치(transpose) 연산이며 행과 열을 바꾸는 작업이다."
-                                                        "가중치 변화량 : 학습률 * 비용 함수의 기울기"
-                                                        "전체 X에 대하여 기울기를 계산한다."
-            self.w_[0] += self.eta * errors.sum()       "절편에 errors수를 더한다."
-            cost = (errors ** 2).sum() / 2.0            "비용 함수 =  ½Σ(실제 값 - 계산한 값)^2"
-            self.cost_.append(cost)                     "현제 시도에서의 비용 함수 값 저장"
+            net_input = self.net_input(X)               #"최종 입력 계산"
+            output = self.activation(net_input)         #"선형 활성화 계산"
+            errors = ( y - output )                     #"오차 계산 (실제 값 - 예측 값)"
+            self.w_[1:] += self.eta * X.T.dot(errors)   #"배열의 T 속성 : 2차원 배열의 전치(transpose) 연산이며 행과 열을 바꾸는 작업이다."
+                                                        #"가중치 변화량 : 학습률 * 비용 함수의 기울기"
+                                                        #"X.T.dot(errors) : 특성 행렬과 오차 백터 간의 행렬-백터 곱"
+            self.w_[0] += self.eta * errors.sum()       #"절편에 errors수를 더한다."
+            cost = (errors ** 2).sum() / 2.0            #"비용 함수 =  ½Σ(실제 값 - 계산한 값)^2"
+            self.cost_.append(cost)                     #"현제 시도에서의 비용 함수 값 저장"
         return self
     
     "최종 입력 계산"
@@ -64,7 +64,7 @@ class AdalineGD(object):
    
     "선형 활성화 계산, "
     def activation(self, X):
-        return X    "선형 활성화 단계를 보여주기 위함"
+        return X    #"선형 활성화 단계를 보여주기 위함"
 
     "단위 계단 함수를 사용하여 클레스 레이블을 반환"
     def predict(self, X):
