@@ -71,7 +71,7 @@ class AdalineSGD(object):
     def _update_weights(self, xi, target):
         output = self.activation(self.net_input(xi))
         error = (target - output)
-        self.w_[1:] += self.eta * xi.dot(error) #xi에 대해서만 가중치 업데이트
+        self.w_[1:] += self.eta * xi.dot(error) #xi의 결과만 이용하여 가중치 업데이트
         self.w_[0] += self.eta * error
         cost = 0.5 * error**2
         return cost                             #모든 X의 평균 cost값이 비용 함수 값이 된다.
