@@ -41,27 +41,27 @@ class Perceptron(object):
         ----------
         self : object
         """
-        rgen = np.random.RandomState(self.random_state)
-        self.w_ = rgen.normal(loc = 0.0, scale = 0.01, size = 1 + X.shape[1])
-        self.errors_ = []
+        rgen = np.random.RandomState(self.random_state)                         "랜덤 시드 값 설정"
+        self.w_ = rgen.normal(loc = 0.0, scale = 0.01, size = 1 + X.shape[1])   "정규화를 이용한 가중치 초기화"
+        self.errors_ = []                                                       "각 시도마다 에러 수 저장"
 
         for _ in range(self.n_iter):
             errors = 0
-            for xi, target in zip(X, y):
-                update = self.eta * (target - self.predict(xi))
-                self.w_[1:] += update * xi
-                self.w_[0] += update
-                errors += int(update != 0.0)
-            self.errors_.append(errors)
+            for xi, target in zip(X, y):    "zip() : 자료형을 묶어준다. (X[0] y[0]) ... (X[n] y[n])"
+                update = self.eta * (target - self.predict(xi)) "학습률 * ( 실제 값 - 예측 값 )"
+                self.w_[1:] += update * xi  "배열의 두번째 요소 부터 마지막까지 업데이트(개별 가중치에 대해 동시 업데이트)"
+                self.w_[0] += update        "배열의 첫번쨰 요소 업데이트(절편)"
+                errors += int(update != 0.0)"에러가 있다면 에러 수 증가"
+            self.errors_.append(errors)     "에러 배열에 에러 수 추가"
         return self
     
     "최종 입력 계산"
     def net_input(self, X):
-        return np.dot(X, self.w_[1:]) + self.w_[0]
+        return np.dot(X, self.w_[1:]) + self.w_[0] "가중치와 훈련 샘플을 행렬 곱한 후 절편을 더한 값을 리턴한다."
 
     "단위 계단 함수를 사용하여 클레스 레이블을 반환"
     def predict(self, X):
-        return np.where(self.net_input(X) >= 0.0, 1, -1)
+        return np.where(self.net_input(X) >= 0.0, 1, -1) "최종 입력 계산 결과가 0.0 보다 크면 1, 아니면 -1 리턴"
 
 
 "pandas 라이브러리를 사용하여 UCI 머신 러닝 저장소에서 붓꽃 데이터 셋을 로드"
@@ -69,10 +69,10 @@ class Perceptron(object):
 df = pd.read_csv('../iris.data', header = None)
 
 "100개의 훈련 샘플에서 첫 번째 열과 세 번째 열을 추출하여 특성 행렬 X에 저장"
-y = df.iloc[0:100, 4].values
-y = np.where(y == 'Iris-setosa', -1, 1)
+y = df.iloc[0:100, 4].values            "target 값 추출"
+y = np.where(y == 'Iris-setosa', -1, 1) "-1과 1로 표현"
 
-X = df.iloc[0:100, [0, 2]].values
+X = df.iloc[0:100, [0, 2]].values       "첫번째 열과 세번째 열을 가져온다."
 
 plt.scatter(X[:50, 0], X[:50, 1], color = 'red', marker = 'o', label = 'setosa')
 plt.scatter(X[50:100, 0], X[50:100, 1], color = 'blue', marker = 'x', label = 'versicolor')
