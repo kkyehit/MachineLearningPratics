@@ -47,22 +47,24 @@ class AdalineGD(object):
 
         "최종입력 -> 활성화 -> 출력 순으로 진행"
         for i in range(self.n_iter):
-            net_input = self.net_input(X)
-            output = self.activation(net_input)
-            errors = ( y - output )
-            self.w_[1:] += self.eta * X.T.dot(errors)
-            self.w_[0] += self.eta * errors.sum()
-            cost = (errors ** 2).sum() / 2.0
-            self.cost_.append(cost)
+            net_input = self.net_input(X)               "최종 입력 계산"
+            output = self.activation(net_input)         "선형 활성화 계산"
+            errors = ( y - output )                     "오차 계산"
+            self.w_[1:] += self.eta * X.T.dot(errors)   "배열의 T 속성 : 2차원 배열의 전치(transpose) 연산이며 행과 열을 바꾸는 작업이다."
+                                                        "가중치 변화량 : 학습률 * 비용 함수의 기울기"
+                                                        "모든 가중치를 업데이트 한다."
+            self.w_[0] += self.eta * errors.sum()       "절편에 errors수를 더한다."
+            cost = (errors ** 2).sum() / 2.0            "비용 함수 =  ½Σ(실제 값 - 계산한 값)^2"
+            self.cost_.append(cost)                     "현제 시도에서의 비용 함수 값 저장"
         return self
     
     "최종 입력 계산"
     def net_input(self, X):
         return np.dot(X, self.w_[1:]) + self.w_[0]
    
-    "선형 활서화 계산, "
+    "선형 활성화 계산, "
     def activation(self, X):
-        return X
+        return X    "선형 활성화 단계를 보여주기 위함"
 
     "단위 계단 함수를 사용하여 클레스 레이블을 반환"
     def predict(self, X):
